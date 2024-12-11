@@ -1,0 +1,13 @@
+{
+    "cSpell.words": [
+        "texteditable"
+    ],
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "files.defaultLanguage": "js",
+    "notebook.defaultFormatter": "vscode.typescript-language-features",
+    "editor.language.brackets": [
+        
+
+    ]
+}

@@ -1,0 +1,10 @@
+.backDrop {
+  background-image: url("../../assets/icons/back1.gif");
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}

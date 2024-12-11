@@ -1,0 +1,44 @@
+body {
+  font-family: Arial, sans-serif;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdownContent {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content .heading {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.dropdown-content .subheadings {
+  padding-left: 20px;
+}
+
+.dropdown-content .subheadings span {
+  display: block;
+  padding: 5px 0;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
