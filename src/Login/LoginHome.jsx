@@ -11,27 +11,33 @@ const LoginHome = ({ setLoginPopup, setIsOpen }) => {
         {/* <div className="font-sans font-semibold text-6xl px-6 py-2 bg-logo-gradient">
             Adira AI
           </div> */}
-        <div className="font-sans w-72 font-semibold text-6xl px-6 py-2 bg-logo-gradient rounded">
-          <TypeAnimation
-            sequence={[
-              // Same substring at the start will only be typed out once, initially
-              "Adira AI",
-              3000,
-              "",
-              1000,
-              // "Frontend Developer",
-              // 2000,
-            ]}
-            wrapper="span"
-            speed={1}
-            style={{
-              fontSize: "3.5rem",
-              fontWeight: "700",
-              display: "inline-block",
-            }}
-            repeat={Infinity}
-          />
-        </div>
+        {/* <div className="font-sans w-72 font-semibold text-6xl px-6 py-2 bg-logo-gradient rounded"> */}
+        <TypeAnimation
+          sequence={[
+            // Same substring at the start will only be typed out once, initially
+            "Adira AI",
+            3000,
+            "",
+            1000,
+            // "Frontend Developer",
+            // 2000,
+          ]}
+          wrapper="div"
+          speed={1}
+          style={{
+            color: "#018081",
+            fontSize: "4rem",
+            fontWeight: "700",
+            display: "inline-block",
+
+            // borderStyle: "solid",
+            // borderWidth: "5px",
+          }}
+          cursor={false}
+          className="type"
+          repeat={Infinity}
+        />
+        {/* </div> */}
         <div className="font-sans font-medium text-sm mt-2">
           AI Powered Legal Document Drafter by CLAW
         </div>

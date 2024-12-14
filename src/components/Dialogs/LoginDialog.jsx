@@ -1,157 +1,15 @@
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { setOtpVerified, setUser } from "../../features/authSlice";
-import {
-  auth,
-  PhoneAuthProvider,
-  RecaptchaVerifier,
-  // RecaptchaVerifier,
-  signInWithCredential,
-  signInWithPhoneNumber,
-} from "../../utils/firebase";
-import { useNavigate } from "react-router-dom";
-import { NODE_API_ENDPOINT } from "../../utils/utils";
 import { Close } from "@mui/icons-material";
-import toast from "react-hot-toast";
-import { CircularProgress } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const LoginDialog = ({ setLoginPopup, setIsOpen }) => {
-  const dispatch = useDispatch();
-  const { isOtpVerified } = useSelector((state) => state.auth);
-  // const [firstName, setFirstName] = useState("");
-  // const [lastName, setLastName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [localOtp, setLocalOtp] = useState("");
-  const [showOtpDialog, setShowOtpDialog] = useState(false);
-
-  // const [phoneNumber, setPhoneNumber] = useState();
-  const [verificationId, setVerificationId] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [signUpForm, setSignUpForm] = useState(false);
 
   const navigate = useNavigate();
 
-  const currentUser = useSelector((state)=>state.auth.user)
-
-  // Function to clear children of an element
-  function clearRecaptchaChildren() {
-    const recaptchaElement = document.getElementById("recaptcha");
-
-    if (recaptchaElement) {
-      while (recaptchaElement.firstChild) {
-        recaptchaElement.removeChild(recaptchaElement.firstChild);
-      }
-    } else {
-      console.warn('Element with ID "recaptcha" not found.');
-    }
-  }
-
-  const handleSubmit = async (e) => {
-    setIsLoading(true);
+  const handleSignIn = (e) => {
     e.preventDefault();
-    // Example usage
-    clearRecaptchaChildren();
-    // check ether mobile number is registered or not
-    const fetchedResp = await fetch(
-      `${NODE_API_ENDPOINT}/clientAdira/clientAdiraValidation`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${currentUser.jwt}`,
-          "Content-Type": "application/json",
-        },
-     
-        body: JSON.stringify({ phoneNumber }),
-      }
-    );
-
-    if (!fetchedResp.ok) {
-      toast.error("This number is not registered!");
-      setIsLoading(false);
-      return;
-    }
-
-    // handleDisableButton();
-    console.log("sendOTP");
-
-    const recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha", {
-      size: "invisible",
-      callback: (response) => {
-        // reCAPTCHA solved, allow signInWithPhoneNumber.
-        console.log(response);
-      },
-      auth,
-    });
-
-    console.log("I am here");
-    console.log(phoneNumber);
-
-    signInWithPhoneNumber(auth, "+91" + phoneNumber, recaptchaVerifier)
-      .then((confirmationResult) => {
-        setVerificationId(confirmationResult.verificationId);
-        // alert("OTP sent!");
-        toast.success("OTP sent successfully !");
-        setIsLoading(false);
-        setShowOtpDialog(true);
-      })
-      .catch((error) => {
-        // alert("Error during OTP request");
-        toast.error("Error during OTP request");
-        console.error("Error during OTP request:", error);
-        setShowOtpDialog(false);
-        setIsLoading(false);
-      });
-  };
-
-  const handleVerifyOtp = async () => {
-    setIsLoading(true);
-    const credential = PhoneAuthProvider.credential(verificationId, localOtp);
-    localStorage.setItem("loginOtp", localOtp);
-
-    signInWithCredential(auth, credential)
-      .then(async (userCredential) => {
-        const user = userCredential.user;
-        setIsLoading(false);
-        toast.success("Phone number verified successfully!");
-
-        const props = await fetch(`${NODE_API_ENDPOINT}/clientAdira/getuser`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            // Authorization: `Bearer ${parsedUser.token}`,
-          },
-        });
-
-        if (!props.ok) {
-          setIsLoading(false);
-          toast.error("User not found!");
-          return;
-        }
-        const parsedProps = await props.json();
-        console.log(parsedProps.data);
-        dispatch(setUser(parsedProps.data.user));
-        navigate("/");
-      })
-
-      .catch((error) => {
-        toast.error("Error during OTP verification:");
-        console.log(error);
-        setIsLoading(false);
-        // setProceedToPayment(false);
-      });
-  };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   setShowOtpDialog(true);
-  // };
-
-  // const handleVerifyOtp = () => {
-  //   // Simulate OTP verification logic
-  // };
-
-  const handleOtpVerification = (e) => {
-    setLocalOtp(e.target.value);
+    navigate("/pricing");
   };
 
   return (
@@ -166,87 +24,121 @@ const LoginDialog = ({ setLoginPopup, setIsOpen }) => {
       >
         <Close />
       </div>
-      <div className="flex flex-col justify-start items-start gap-1">
-        <div className="font-sans text-[2rem] leading-[3rem] -tracking-[0.09rem] text-black font-bold">
-          Welcome Back !
+      {!signUpForm ? (
+        <div className="flex flex-col justify-center h-full items-start gap-2">
+          <h1
+            className="font-sans text-[2rem] leading-[3rem] -tracking-[0.09rem] font-bold"
+            style={{
+              background:
+                "linear-gradient(to bottom, rgb(0, 128, 128) 0%, #00FFA3 100%)",
+              WebkitBackgroundClip: "text",
+              backgroundClip: "text",
+
+              color: "transparent",
+            }}
+          >
+            Enter Login Credentials
+          </h1>
+          <div className="w-full py-2 flex flex-col gap-3">
+            <input
+              className="w-full px-2 py-3 rounded-lg text-black"
+              placeholder="Enter Username"
+            />
+            <input
+              className="w-full px-2 py-3 rounded-lg text-black"
+              placeholder="Enter Password"
+            />
+          </div>
+          <div className="w-full flex justify-end">
+            <button className="border px-6 py-2 rounded-lg hover:bg-white hover:bg-opacity-25">
+              Login
+            </button>
+          </div>
+          <div className="w-full flex justify-center">
+            <p>
+              Not yet registered?{" "}
+              <span
+                onClick={() => setSignUpForm(true)}
+                className="font-bold cursor-pointer"
+                style={{
+                  background:
+                    "linear-gradient(to bottom, rgb(0, 128, 128) 0%, #00FFA3 100%)",
+                  WebkitBackgroundClip: "text",
+                  backgroundClip: "text",
+
+                  color: "transparent",
+                }}
+              >
+                Sign Up Here
+              </span>
+            </p>
+          </div>
         </div>
-        <p className=" text-sm">
-          Enter Your Mobile Number to Login to{" "}
-          <span className="font-bold">Adira AI</span>
-        </p>
-      </div>
-      {!showOtpDialog ? (
-        <form onSubmit={handleSubmit}>
-          <div className="flex flex-col gap-2">
-            <div className="flex flex-col gap-2">
-              <input
-                required
-                value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
-                placeholder="Enter your Mobile Number"
-                className="w-full pl-4 p-2 bg-customInput rounded border border-black text-black"
-                type="text"
-                disabled={isOtpVerified}
-              />
-              <div className="w-full flex justify-end gap-2">
-                <button
-                  onClick={() => {
-                    setLoginPopup(false);
-                    setIsOpen(false);
-                  }}
-                  className="px-3 py-1 bg-transparent border border-black rounded"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="px-3 py-1 bg-logo-gradient rounded border"
-                >
-                  {!isLoading ? (
-                    "Send OTP"
-                  ) : (
-                    <CircularProgress size={15} color="inherit" />
-                  )}
-                </button>
-              </div>
-            </div>
+      ) : (
+        <form
+          onSubmit={handleSignIn}
+          className="flex flex-col justify-center h-full items-start gap-2"
+        >
+          <h1
+            className="font-sans text-[2rem] leading-[3rem] -tracking-[0.09rem] font-bold"
+            style={{
+              background:
+                "linear-gradient(to bottom, rgb(0, 128, 128) 0%, #00FFA3 100%)",
+              WebkitBackgroundClip: "text",
+              backgroundClip: "text",
+
+              color: "transparent",
+            }}
+          >
+            Create An Account
+          </h1>
+          <div className="w-full py-2 flex flex-col gap-3">
+            <input
+              className="w-full px-2 py-3 rounded-lg text-black"
+              placeholder="Enter Username"
+            />
+            <input
+              className="w-full px-2 py-3 rounded-lg text-black"
+              placeholder="Enter Email ID"
+            />
+            <input
+              className="w-full px-2 py-3 rounded-lg text-black"
+              placeholder="Enter Mobile Number"
+            />
+            <input
+              className="w-full px-2 py-3 rounded-lg text-black"
+              placeholder="Enter A Password"
+            />
+          </div>
+          <div className="w-full flex justify-end">
+            <button
+              type="submit"
+              className="border px-6 py-2 rounded-lg hover:bg-white hover:bg-opacity-25"
+            >
+              Sign Up
+            </button>
+          </div>
+          <div className="w-full flex justify-center">
+            <p>
+              Already registered ?{" "}
+              <span
+                onClick={() => setSignUpForm(false)}
+                className="font-bold cursor-pointer"
+                style={{
+                  background:
+                    "linear-gradient(to bottom, rgb(0, 128, 128) 0%, #00FFA3 100%)",
+                  WebkitBackgroundClip: "text",
+                  backgroundClip: "text",
+
+                  color: "transparent",
+                }}
+              >
+                Login Here
+              </span>
+            </p>
           </div>
         </form>
-      ) : (
-        <div className="flex flex-col gap-2">
-          <input
-            required
-            placeholder="Enter OTP"
-            className="w-full pl-4 p-2 text-black bg-customInput rounded border border-black"
-            type="text"
-            value={localOtp}
-            onChange={handleOtpVerification}
-          />
-          <div className="w-full flex justify-end gap-2">
-            <button
-              onClick={() => {
-                setLoginPopup(false);
-                setIsOpen(false);
-              }}
-              className="px-3 py-1 bg-transparent border-2 border-black rounded"
-            >
-              Cancel
-            </button>
-            <button
-              disabled={localOtp === ""}
-              onClick={handleVerifyOtp}
-              className="px-3 py-1 bg-logo-gradient rounded border"
-            >
-              {!isLoading ? (
-                "Verify OTP"
-              ) : (
-                <CircularProgress size={15} color="inherit" />
-              )}
-            </button>
-          </div>
-        </div>
       )}
-      <div id="recaptcha"></div>
     </div>
     // </div>
   );

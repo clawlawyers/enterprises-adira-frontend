@@ -31,6 +31,7 @@ import { useSelector } from "react-redux";
 import { CircularProgress, Modal } from "@mui/material";
 import AdminLogin from "./AdminLogin/AdminLogin";
 import PromptFile from "./PromptFile/PromptFile";
+import Pricing from "./Payments/Pricing";
 
 // const router = createBrowserRouter([
 //   {
@@ -155,6 +156,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Hero />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/pricing" element={<Pricing />} />
         <Route path="/manageDoc" element={<ManageDoc />} />
         <Route path="/upload" element={<Upload />} />
         <Route path="/DocPreview" element={<DocEdit />} />

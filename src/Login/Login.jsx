@@ -12,17 +12,25 @@ const Login = () => {
 
   return (
     <div className="flex flex-col justify-center items-center w-full h-screen relative p-2 overflow-hidden">
-      <div
-        className="w-full h-screen absolute p-3 rounded-lg"
-        style={{
-          background: `radial-gradient(circle at 50% 0%, #018585, transparent 45%)`,
-        }}
-      >
-        <img className="w-full h-full opacity-50" src={aiIcon} />
+      <div className="w-full h-screen absolute p-3 rounded-lg">
+        {/* Video background */}
+        <video
+          className="w-full h-full object-cover opacity-65 rounded-lg"
+          autoPlay
+          loop
+          muted
+          playsInline
+        >
+          <source
+            src="https://res.cloudinary.com/dyuov6i8c/video/upload/v1732689934/LegalGPT/vnibvz9t1533t1bq2ekf.mp4"
+            type="video/mp4"
+          />
+          Your browser does not support the video tag.
+        </video>
       </div>
       <div
         className="flex flex-col h-screen w-full  z-20 p-2 gap-3 bg-black bg-opacity-20 rounded-lg"
-        style={{ boxShadow: "0 0 5px white, 0 0 10px white, 0 0 10px white" }}
+        // style={{ boxShadow: "0 0 1px white, 0 0 1px white, 0 0 1px white" }}
       >
         <div className="flex flex-col justify-between w-full h-full  ">
           <LoginHome setLoginPopup={setLoginPopup} setIsOpen={setIsOpen} />
@@ -47,14 +55,14 @@ const Login = () => {
               padding: "20px",
               color: "white",
               textAlign: "center",
-              height: "70%",
+              height: "auto",
               width: "100%",
               display: "flex",
               justifyContent: "center",
             }}
           >
-            <div className="grid md:grid-cols-2 h-full overflow-hidden w-2/3 bg-logo-gradient rounded-lg border border-white">
-              <div className="p-2">
+            <div className="grid md:grid-cols-[40%_60%] h-full overflow-hidden w-2/3 bg-logo-gradient rounded-lg border border-white">
+              <div className="flex justify-center items-center p-2">
                 <img src={loginIcon} />
               </div>
               <LoginDialog
