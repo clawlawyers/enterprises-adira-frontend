@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Close } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import Img from "../../assets/Workingchart.png";
 
 const LoginDialog = ({ setLoginPopup, setIsOpen }) => {
   const [signUpForm, setSignUpForm] = useState(false);
@@ -13,134 +13,126 @@ const LoginDialog = ({ setLoginPopup, setIsOpen }) => {
   };
 
   return (
-    // <div className="fixed flex backdrop-blur-sm w-full h-full top-0 left-0 items-center justify-center z-50">
-    <div className="w-full flex relative flex-col gap-12 p-10">
-      <div
-        className="absolute right-3 hover:cursor-pointer top-2"
-        onClick={() => {
-          setLoginPopup(false);
-          setIsOpen(false);
-        }}
-      >
-        <Close />
-      </div>
-      {!signUpForm ? (
-        <div className="flex flex-col justify-center h-full items-start gap-2">
-          <h1
-            className="font-sans text-[2rem] leading-[3rem] -tracking-[0.09rem] font-bold"
-            style={{
-              background:
-                "linear-gradient(to bottom, rgb(0, 128, 128) 0%, #00FFA3 100%)",
-              WebkitBackgroundClip: "text",
-              backgroundClip: "text",
+    <div className="w-full max-w-[896px] mt-2 mx-auto bg-teal-800 rounded-md ">
+      <p className="text-center bg-teal-500 font-bold text-white p-1 text-sm rounded-tr-md rounded-tl-md">
+        ENTERPRISE VERSION
+      </p>
 
-              color: "transparent",
-            }}
-          >
-            Enter Login Credentials
-          </h1>
-          <div className="w-full py-2 flex flex-col gap-3">
-            <input
-              className="w-full px-2 py-3 rounded-lg text-black"
-              placeholder="Enter Username"
-            />
-            <input
-              className="w-full px-2 py-3 rounded-lg text-black"
-              placeholder="Enter Password"
-            />
-          </div>
-          <div className="w-full flex justify-end">
-            <button className="border px-6 py-2 rounded-lg hover:bg-white hover:bg-opacity-25">
-              Login
-            </button>
-          </div>
-          <div className="w-full flex justify-center">
-            <p>
-              Not yet registered?{" "}
-              <span
-                onClick={() => setSignUpForm(true)}
-                className="font-bold cursor-pointer"
-                style={{
-                  background:
-                    "linear-gradient(to bottom, rgb(0, 128, 128) 0%, #00FFA3 100%)",
-                  WebkitBackgroundClip: "text",
-                  backgroundClip: "text",
-
-                  color: "transparent",
-                }}
-              >
-                Sign Up Here
-              </span>
-            </p>
-          </div>
+      {/* Main Container */}
+      <div className="flex flex-wrap sm:flex-nowrap items-center px-4 gap-4">
+        {/* Image Section (40%) */}
+        <div className="flex-[4] w-full sm:w-auto flex justify-center">
+          <img
+            src={Img}
+            alt="Illustration"
+            className="w-full max-w-[300px] sm:max-w-full rounded-md object-contain"
+          />
         </div>
-      ) : (
-        <form
-          onSubmit={handleSignIn}
-          className="flex flex-col justify-center h-full items-start gap-2"
-        >
-          <h1
-            className="font-sans text-[2rem] leading-[3rem] -tracking-[0.09rem] font-bold"
-            style={{
-              background:
-                "linear-gradient(to bottom, rgb(0, 128, 128) 0%, #00FFA3 100%)",
-              WebkitBackgroundClip: "text",
-              backgroundClip: "text",
 
-              color: "transparent",
-            }}
-          >
-            Create An Account
-          </h1>
-          <div className="w-full py-2 flex flex-col gap-3">
-            <input
-              className="w-full px-2 py-3 rounded-lg text-black"
-              placeholder="Enter Username"
-            />
-            <input
-              className="w-full px-2 py-3 rounded-lg text-black"
-              placeholder="Enter Email ID"
-            />
-            <input
-              className="w-full px-2 py-3 rounded-lg text-black"
-              placeholder="Enter Mobile Number"
-            />
-            <input
-              className="w-full px-2 py-3 rounded-lg text-black"
-              placeholder="Enter A Password"
-            />
-          </div>
-          <div className="w-full flex justify-end">
-            <button
-              type="submit"
-              className="border px-6 py-2 rounded-lg hover:bg-white hover:bg-opacity-25"
-            >
-              Sign Up
-            </button>
-          </div>
-          <div className="w-full flex justify-center">
-            <p>
-              Already registered ?{" "}
-              <span
-                onClick={() => setSignUpForm(false)}
-                className="font-bold cursor-pointer"
+        {/* Form Section (60%) */}
+        <div className="flex-[6] w-full sm:w-auto">
+          {!signUpForm ? (
+            <div className="flex flex-col gap-4">
+              <h1
+                className="text-2xl font-bold text-teal-100"
                 style={{
                   background:
-                    "linear-gradient(to bottom, rgb(0, 128, 128) 0%, #00FFA3 100%)",
+                    "linear-gradient(180deg, #018081 0%, #00FFA3 100%)",
                   WebkitBackgroundClip: "text",
-                  backgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}>
+                Enter Login Credentials
+              </h1>
+              <div className="flex flex-col gap-3">
+                <input
+                  type="text"
+                  className="w-full px-4 py-2 bg-white rounded-sm text-black"
+                  placeholder="Enter Username"
+                  required
+                />
+                <input
+                  type="password"
+                  className="w-full px-4 py-2 bg-white rounded-sm text-black"
+                  placeholder="Enter Password"
+                  required
+                />
+              </div>
 
-                  color: "transparent",
-                }}
-              >
-                Login Here
-              </span>
-            </p>
-          </div>
-        </form>
-      )}
+              {/* Login Section */}
+              <div className="flex justify-between items-center text-sm">
+                <p>
+                  Not yet registered?{" "}
+                  <span
+                    onClick={() => setSignUpForm(true)}
+                    className="font-bold cursor-pointer text-teal-100 hover:underline">
+                    Sign Up Here
+                  </span>
+                </p>
+                <button className="border px-4 py-2 rounded-md hover:bg-white hover:bg-opacity-25">
+                  Login
+                </button>
+              </div>
+            </div>
+          ) : (
+            <form onSubmit={handleSignIn} className="flex flex-col gap-4">
+              <h1
+                className="text-2xl font-bold text-teal-100"
+                style={{
+                  background:
+                    "linear-gradient(180deg, #018081 0%, #00FFA3 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}>
+                Create An Account
+              </h1>
+              <div className="flex flex-col gap-3">
+                <input
+                  type="text"
+                  className="w-full px-4 py-2 bg-white rounded-sm text-black"
+                  placeholder="Enter Username"
+                  required
+                />
+                <input
+                  type="email"
+                  className="w-full px-4 py-2 bg-white rounded-sm text-black"
+                  placeholder="Enter Email ID"
+                  required
+                />
+                <input
+                  type="text"
+                  className="w-full px-4 py-2 bg-white rounded-sm text-black"
+                  placeholder="Enter Mobile Number"
+                  required
+                />
+                <input
+                  type="password"
+                  className="w-full px-4 py-2 bg-white rounded-sm text-black"
+                  placeholder="Enter A Password"
+                  required
+                />
+              </div>
+
+              {/* Sign Up Section */}
+              <div className="flex justify-between items-center text-sm">
+                <p>
+                  Already registered?{" "}
+                  <span
+                    onClick={() => setSignUpForm(false)}
+                    className="font-bold cursor-pointer text-teal-100 hover:underline">
+                    Login Here
+                  </span>
+                </p>
+                <button
+                  type="submit"
+                  className="border px-4 py-2 rounded-md hover:bg-white hover:bg-opacity-25">
+                  Sign Up
+                </button>
+              </div>
+            </form>
+          )}
+        </div>
+      </div>
     </div>
-    // </div>
   );
 };
 

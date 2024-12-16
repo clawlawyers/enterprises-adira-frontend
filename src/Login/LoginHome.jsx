@@ -1,58 +1,49 @@
 import React from "react";
 import { TypeAnimation } from "react-type-animation";
-import { motion } from "framer-motion";
-import styles from "./LoginHome.module.css";
+import LoginDialog from "../components/Dialogs/LoginDialog";
+import ClawLogo from "../assets/clawlogo2.png";
+import HomeLogo from "../assets/home1.png";
 
 const LoginHome = ({ setLoginPopup, setIsOpen }) => {
   return (
-    <div className="flex flex-col items-center justify-between w-full h-full p-20">
-      <div className="flex flex-col gap-2 items-center text-center">
+    <div className="flex flex-col items-center justify-between w-full h-screen p-4 overflow-auto">
+      <div className="flex justify-between items-center w-full">
+        <img
+          src={ClawLogo}
+          alt="Claw Logo"
+          className="h-15 w-15 object-contain transition-transform duration-300 hover:scale-110 hover:opacity-80"
+        />
+        <img
+          src={HomeLogo}
+          alt="Home Logo"
+          className="h-10 w-10 object-contain transition-transform duration-300 hover:scale-110 hover:opacity-80"
+        />
+      </div>
+
+      {/* Header Section */}
+      <div className="flex flex-col gap-4 items-center text-center">
         <div className="font-sans font-medium text-2xl">Welcome to</div>
-        {/* <div className="font-sans font-semibold text-6xl px-6 py-2 bg-logo-gradient">
-            Adira AI
-          </div> */}
-        {/* <div className="font-sans w-72 font-semibold text-6xl px-6 py-2 bg-logo-gradient rounded"> */}
         <TypeAnimation
-          sequence={[
-            // Same substring at the start will only be typed out once, initially
-            "Adira AI",
-            3000,
-            "",
-            1000,
-            // "Frontend Developer",
-            // 2000,
-          ]}
+          sequence={["Adira AI", 3000, "", 1000]}
           wrapper="div"
           speed={1}
           style={{
             color: "#018081",
-            fontSize: "4rem",
+            fontSize: "3rem",
             fontWeight: "700",
             display: "inline-block",
-
-            // borderStyle: "solid",
-            // borderWidth: "5px",
           }}
           cursor={false}
           className="type"
           repeat={Infinity}
         />
-        {/* </div> */}
-        <div className="font-sans font-medium text-sm mt-2">
+        <div className="font-sans font-medium text-sm">
           AI Powered Legal Document Drafter by CLAW
         </div>
       </div>
-      <motion.div whileHover={{ scale: "1.1" }} className="w-1/3">
-        <button
-          onClick={() => {
-            setLoginPopup(true);
-            setIsOpen(true);
-          }}
-          className={styles.glow_on_hover}
-        >
-          Login To Continue
-        </button>
-      </motion.div>
+
+      {/* Login Dialog Section */}
+      <LoginDialog />
     </div>
   );
 };
