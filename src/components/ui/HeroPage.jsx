@@ -55,7 +55,7 @@ const HeroPage = () => {
       <div className="grid font-sans md:grid-cols-4 gap-5 w-[90%]">
         <div
           onClick={() => {
-            if (userPlan?.isUploadOwnDocument) {
+            if (userPlan === null) {
               navigate("/upload");
             } else {
               toast.error("PLEASE UPGRADE YOUR PLAN");
@@ -81,7 +81,7 @@ const HeroPage = () => {
         </div>
         <div
           onClick={() => {
-            if (userPlan?.isPromptDrafting) {
+            if (userPlan === null) {
               navigate("/Drafter");
             } else {
               toast.error("PLEASE UPGRADE YOUR PLAN");
@@ -105,7 +105,7 @@ const HeroPage = () => {
         </div>
         <div
           onClick={() => {
-            if (userPlan?.isTypeOfDocument) {
+            if (userPlan === null) {
               navigate("/DocType");
             } else {
               toast.error("PLEASE UPGRADE YOUR PLAN");
@@ -131,7 +131,7 @@ const HeroPage = () => {
         </div>
         <div
           onClick={() => {
-            if (userPlan?.isUploadOwnDocumentWithPrompt) {
+            if (userPlan === null) {
               navigate("/Prompt");
             } else {
               toast.error("PLEASE UPGRADE YOUR PLAN");

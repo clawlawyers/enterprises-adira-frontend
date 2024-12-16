@@ -32,6 +32,7 @@ import { CircularProgress, Modal } from "@mui/material";
 import AdminLogin from "./AdminLogin/AdminLogin";
 import PromptFile from "./PromptFile/PromptFile";
 import Pricing from "./Payments/Pricing";
+import Signup from "./Login/Signup";
 
 // const router = createBrowserRouter([
 //   {
@@ -156,6 +157,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Hero />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/manageDoc" element={<ManageDoc />} />
         <Route path="/upload" element={<Upload />} />

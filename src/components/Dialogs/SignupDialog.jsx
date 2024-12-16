@@ -1,27 +1,29 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Img from "../../assets/Workingchart.png";
-import { useDispatch } from "react-redux";
 import { NODE_API_ENDPOINT } from "../../utils/utils";
-import { setPlanData, setUser } from "../../features/authSlice";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../features/authSlice";
 
-const LoginDialog = () => {
+const SignupDialog = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
+    email: "",
     password: "",
+    mobileNumber: "",
   });
 
   const handleOnchange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleLoin = async (e) => {
+  const handleSignIn = async (e) => {
     e.preventDefault();
 
-    const loginData = await fetch(`${NODE_API_ENDPOINT}/ai-drafter/login`, {
+    const signupData = await fetch(`${NODE_API_ENDPOINT}/ai-drafter/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -29,28 +31,26 @@ const LoginDialog = () => {
       body: JSON.stringify(formData),
     });
 
-    if (!loginData.ok) {
-      const errorData = await loginData.json();
+    if (!signupData.ok) {
+      const errorData = await signupData.json();
       console.error(errorData);
       toast.error(errorData.message);
     }
-    const loginDataJSON = await loginData.json();
+    const signupDataJSON = await signupData.json();
 
-    console.log(loginDataJSON);
+    console.log(signupDataJSON);
 
     dispatch(
       setUser({
-        username: loginDataJSON.data.user.username,
-        email: loginDataJSON.data.user.email,
-        mobileNumber: loginDataJSON.data.user.mobileNumber,
-        token: loginDataJSON.data.token,
+        username: signupDataJSON.data.user.username,
+        email: signupDataJSON.data.user.email,
+        mobileNumber: signupDataJSON.data.user.mobileNumber,
+        token: signupDataJSON.data.token,
       })
     );
+    toast.success("Signup successful!");
 
-    dispatch(setPlanData(loginDataJSON.data.plan));
-    toast.success("Login successful!");
-
-    navigate("/");
+    navigate("/pricing");
   };
 
   return (
@@ -72,7 +72,7 @@ const LoginDialog = () => {
 
         {/* Form Section (60%) */}
         <div className="flex-[6] w-full sm:w-auto">
-          <div className="flex flex-col gap-4">
+          <form onSubmit={handleSignIn} className="flex flex-col gap-4">
             <h1
               className="text-2xl font-bold text-teal-100"
               style={{
@@ -81,52 +81,70 @@ const LoginDialog = () => {
                 WebkitTextFillColor: "transparent",
               }}
             >
-              Enter Login Credentials
+              Create An Account
             </h1>
             <div className="flex flex-col gap-3">
               <input
                 type="text"
-                value={formData.username}
                 name="username"
                 onChange={handleOnchange}
+                value={formData.username}
                 className="w-full px-4 py-2 bg-white rounded-sm text-black"
                 placeholder="Enter Username"
                 required
               />
               <input
+                type="email"
+                name="email"
+                onChange={handleOnchange}
+                value={formData.email}
+                className="w-full px-4 py-2 bg-white rounded-sm text-black"
+                placeholder="Enter Email ID"
+                required
+              />
+              <input
+                type="text"
+                name="mobileNumber"
+                onChange={handleOnchange}
+                value={formData.mobileNumber}
+                className="w-full px-4 py-2 bg-white rounded-sm text-black"
+                placeholder="Enter Mobile Number"
+                required
+              />
+              <input
                 type="password"
-                value={formData.password}
                 name="password"
                 onChange={handleOnchange}
+                value={formData.password}
                 className="w-full px-4 py-2 bg-white rounded-sm text-black"
-                placeholder="Enter Password"
+                placeholder="Enter A Password"
                 required
               />
             </div>
 
-            {/* Login Section */}
+            {/* Sign Up Section */}
             <div className="flex justify-between items-center text-sm">
               <p>
-                Not yet registered?{" "}
+                Already registered?{" "}
                 <span
-                  onClick={() => navigate("/signup")}
+                  onClick={() => navigate("/login")}
                   className="font-bold cursor-pointer text-teal-100 hover:underline"
                 >
-                  Sign Up Here
+                  Login Here
                 </span>
               </p>
               <button
+                type="submit"
                 className="border px-4 py-2 rounded-md hover:bg-white hover:bg-opacity-25"
-                onClick={handleLoin}
               >
-                Login
+                Sign Up
               </button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>
   );
 };
 
-export default LoginDialog;
+export default SignupDialog;

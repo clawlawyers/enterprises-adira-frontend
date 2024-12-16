@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import UserModal from "../Modals/UserModal";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import loginIcon from "../../assets/icons/loginIcon.gif";
@@ -50,8 +50,8 @@ const HomeNav = ({ className }) => {
       <div
         className={`${className} flex items-center flex-row justify-end gap-3`}
       >
-        <a
-          href={homename != "HOME" ? "https://clawlaw-dev.netlify.app/" : "/"}
+        <Link
+          to={homename != "HOME" ? "https://clawlaw-dev.netlify.app/" : "/"}
           className="px-5 py-2  border-customBlue rounded-full border-[2px]"
           onClick={path.pathname != "/" ? () => navigation("/") : null}
         >
@@ -72,7 +72,7 @@ const HomeNav = ({ className }) => {
             )}
             <span className="font-sans">{homename}</span>
           </div>
-        </a>
+        </Link>
         {/* <div  onClick={handleOpen}  className="px-5 py-2 font-sans  border-customBlue rounded-full border-[2px]">
   LOGIN
 </div> */}

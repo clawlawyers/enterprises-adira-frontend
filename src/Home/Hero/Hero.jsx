@@ -45,10 +45,10 @@ const Hero = () => {
   console.log(currentUser);
   console.log("here this is hero");
 
-  useEffect(() => {
-    // Dispatch the action to retrieve drafter auth
-    store.dispatch(retrieveDrafterAuth());
-  }, []);
+  // useEffect(() => {
+  //   // Dispatch the action to retrieve drafter auth
+  //   store.dispatch(retrieveDrafterAuth());
+  // }, []);
 
   useEffect(() => {
     if (currentUser?.phoneNumber) {
@@ -89,7 +89,8 @@ const Hero = () => {
           autoPlay
           loop
           muted
-          playsInline>
+          playsInline
+        >
           <source
             src="https://res.cloudinary.com/dyuov6i8c/video/upload/v1732689934/LegalGPT/vnibvz9t1533t1bq2ekf.mp4"
             type="video/mp4"
@@ -100,7 +101,8 @@ const Hero = () => {
 
       <div
         className="flex flex-col h-screen w-full z-20 gap-3 bg-black bg-opacity-20 rounded-lg p-4"
-        style={{ boxShadow: "0 0 5px white, 0 0 10px white, 0 0 5px white" }}>
+        style={{ boxShadow: "0 0 5px white, 0 0 10px white, 0 0 5px white" }}
+      >
         <div className="h-[10%] flex justify-between w-full ">
           <div className={`flex flex-row justify-end gap-3`}></div>
           <HomeNav />

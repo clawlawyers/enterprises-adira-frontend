@@ -1,8 +1,121 @@
-import React from "react";
+import React, { useState } from "react";
 import Return from "../../src/assets/return.png";
 import Home from "../../src/assets/home1.png";
+import { NODE_API_ENDPOINT } from "../utils/utils";
+import { useDispatch, useSelector } from "react-redux";
+import { setPlanData } from "../features/authSlice";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const Pricing = () => {
+  const [receipt, setReceipt] = useState(`receipt_${Date.now()}`);
+  const currentUser = useSelector((state) => state.auth.user);
+  const planData = useSelector((state) => state.auth.planData);
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const PayHandler = async () => {
+    if (planData !== null) {
+      toast.error("You have already Plan");
+      return;
+    }
+    setLoading(true);
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.onerror = () => {
+      setLoading(false);
+      alert("Razorpay SDK failed to load. Are you online?");
+    };
+    script.onload = async () => {
+      try {
+        const result = await axios.post(
+          `${NODE_API_ENDPOINT}/payment/create-order`,
+          {
+            amount: 5999,
+            currency: "INR",
+            receipt: receipt,
+            billingCycle: "MONTHLY",
+            phoneNumber: currentUser.mobileNumber,
+            planName: "Pro",
+          }
+        );
+
+        if (!result || !result.data.razorpayOrder) {
+          throw new Error("Failed to create Razorpay order");
+        }
+
+        const { amount, id, currency } = result.data.razorpayOrder;
+        const orderId = result.data.createdOrder._id;
+
+        console.log(result.data.createdOrder);
+
+        const currentDate = new Date();
+        const futureDate = new Date(currentDate);
+        futureDate.setDate(currentDate.getDate() + 60); // Adding 60 days to the current date
+
+        const options = {
+          key: "rzp_test_UWcqHHktRV6hxM",
+          amount: String(amount),
+          currency: currency,
+          name: "CLAW LEGALTECH PRIVATE LIMITED",
+          description: "Transaction",
+          order_id: id,
+          handler: async function (response) {
+            console.log(response);
+            const data = {
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+              phoneNumber: currentUser.phoneNumber,
+              _id: orderId,
+              planId: "675e462ebd3aeada8dce681a",
+              createdAt: currentDate,
+              expiresAt: futureDate,
+              amount: 5999,
+            };
+
+            console.log(response);
+
+            const result = await axios.post(
+              `${NODE_API_ENDPOINT}/payment/verifyPayment`,
+              data
+            );
+            alert("Payment successfully done");
+            setLoading(false);
+            dispatch(setPlanData(result.data.plan));
+            // dispatch(setActivePlanDetails(result.data.plan.plan));
+            // dispatch(retrieveActivePlanUser());
+          },
+          prefill: {
+            name: currentUser?.username,
+            email: currentUser?.email,
+            contact: currentUser?.mobileNumber,
+          },
+          theme: {
+            color: "#3399cc",
+          },
+        };
+
+        console.log(options);
+
+        const paymentObject = new window.Razorpay(options);
+
+        console.log(paymentObject);
+        paymentObject.open();
+        navigate("/");
+      } catch (error) {
+        setLoading(false);
+        alert(error.message);
+      } finally {
+        setLoading(false);
+        // dispatch(resetTalkToExpert(null));
+      }
+    };
+    document.body.appendChild(script);
+  };
+
   return (
     <div className="flex flex-col justify-center items-center w-full h-screen relative p-4 overflow-hidden">
       {/* Background Video */}
@@ -12,7 +125,8 @@ const Pricing = () => {
           autoPlay
           loop
           muted
-          playsInline>
+          playsInline
+        >
           <source
             src="https://res.cloudinary.com/dyuov6i8c/video/upload/v1732689934/LegalGPT/vnibvz9t1533t1bq2ekf.mp4"
             type="video/mp4"
@@ -55,7 +169,8 @@ const Pricing = () => {
                 WebkitBackgroundClip: "text",
                 backgroundClip: "text",
                 color: "transparent",
-              }}>
+              }}
+            >
               Pricing Plan For Enterprise Version
             </h1>
           </div>
@@ -93,7 +208,10 @@ const Pricing = () => {
             <div className="flex flex-col md:flex-row items-center justify-center text-center gap-4 text-white">
               <p className="line-through text-gray-400 text-xl">₹ 6999/-</p>
               <h1 className="text-4xl font-bold">₹ 5999/-</h1>
-              <button className="px-8 py-2 bg-[#018081] rounded-lg hover:bg-opacity-60 transition duration-300 text-white font-medium">
+              <button
+                onClick={PayHandler}
+                className="px-8 py-2 bg-[#018081] rounded-lg hover:bg-opacity-60 transition duration-300 text-white font-medium"
+              >
                 Get It Now
               </button>
             </div>

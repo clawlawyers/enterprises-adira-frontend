@@ -1271,7 +1271,7 @@ const DocEdit = ({ onSave }) => {
                   <button
                     className="py-2 w-full transition ease-in-out duration-1000  hover:scale-110 rounded-md border-2 border-teal-700"
                     onClick={() => {
-                      if (PlanData?.isDownloadWithWaterMark) {
+                      if (PlanData === null) {
                         handlepdfdownload();
                       } else {
                         toast.error("PLEASE UPGRADE YOUR PLAN");
@@ -1294,7 +1294,7 @@ const DocEdit = ({ onSave }) => {
                 <button
                   className="py-2 w-full transition ease-in-out duration-1000  hover:scale-110 rounded-md border-2 border-teal-700"
                   onClick={() => {
-                    if (PlanData?.isSummerizeDocument) {
+                    if (PlanData === null) {
                       handlePreviewClick();
                     } else {
                       toast.error("PLEASE UPGRADE YOUR PLAN");
@@ -1306,7 +1306,7 @@ const DocEdit = ({ onSave }) => {
                 {savebutton ? (
                   <button
                     onClick={() => {
-                      if (PlanData?.isSnippet) {
+                      if (PlanData === null) {
                         handleSave();
                       } else {
                         toast.error("PLEASE UPGRADE YOUR PLAN");
