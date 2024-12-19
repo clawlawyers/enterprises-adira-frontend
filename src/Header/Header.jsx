@@ -9,7 +9,7 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-gradient-to-r from-teal-700/40 to-teal-900/40 px-4 md:px-8 py-2 my-1 flex items-center justify-between transition rounded-md">
+    <header className="bg-gradient-to-r from-teal-500/40 to-teal-700/40 px-4 md:px-8 py-2 my-1 flex items-center justify-between transition rounded-md">
       {/* Logo Section */}
       <div className="text-white font-bold text-sm md:text-lg tracking-wide">
         <span className="font-extrabold text-2xl">
