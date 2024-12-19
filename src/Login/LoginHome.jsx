@@ -3,21 +3,30 @@ import { TypeAnimation } from "react-type-animation";
 import LoginDialog from "../components/Dialogs/LoginDialog";
 import ClawLogo from "../assets/clawlogo2.png";
 import HomeLogo from "../assets/home1.png";
+import Header from "../Header/Header";
 
 const LoginHome = ({ setLoginPopup, setIsOpen }) => {
   return (
     <div className="flex flex-col items-center justify-between w-full h-screen p-4 overflow-auto">
+      {/* Full-width Header */}
+      <div className="w-full">
+        <Header />
+      </div>
+
       <div className="flex justify-between items-center w-full">
-        <img
-          src={ClawLogo}
-          alt="Claw Logo"
-          className="h-15 w-15 object-contain transition-transform duration-300 hover:scale-110 hover:opacity-80"
-        />
-        <img
-          src={HomeLogo}
-          alt="Home Logo"
-          className="h-10 w-10 object-contain transition-transform duration-300 hover:scale-110 hover:opacity-80"
-        />
+        {/* Uncomment and use these images if needed */}
+        {/* 
+      <img
+        src={ClawLogo}
+        alt="Claw Logo"
+        className="h-15 w-15 object-contain transition-transform duration-300 hover:scale-110 hover:opacity-80"
+      />
+      <img
+        src={HomeLogo}
+        alt="Home Logo"
+        className="h-10 w-10 object-contain transition-transform duration-300 hover:scale-110 hover:opacity-80"
+      />
+      */}
       </div>
 
       {/* Header Section */}

@@ -17,6 +17,8 @@ import {
 } from "@mui/material";
 import loaderGif from "../assets/icons/2.gif";
 import { useDispatch, useSelector } from "react-redux";
+import { styled } from "@mui/material/styles"; // Correct import for MUI v5+
+
 import { useEffect } from "react";
 import {
   setDocId,
@@ -441,8 +443,7 @@ const DrafterArgs = () => {
           {/* arguments container */}
           <div
             id="docText"
-            className="bg-card-gradient  scrollbar-hide overflow-y-auto scroll-smooth rounded-md w-full flex flex-col items-start p-5 h-full"
-          >
+            className="bg-card-gradient  scrollbar-hide overflow-y-auto scroll-smooth rounded-md w-full flex flex-col items-start p-5 h-full">
             {loading ? (
               <div className="flex flex-col h-full items-center justify-center w-full">
                 <img
@@ -476,8 +477,7 @@ const DrafterArgs = () => {
                 <form
                   id="reqPanel"
                   className="space-y-3 flex flex-col h-full w-full overflow-auto scrollbar-hide text-sm"
-                  onSubmit={handleSaveRequirements}
-                >
+                  onSubmit={handleSaveRequirements}>
                   <Accordion
                     style={{
                       backgroundColor: "rgba(34, 34, 34, 0.8)",
@@ -485,8 +485,7 @@ const DrafterArgs = () => {
                       boxShadow: "0px",
                       "border-radius": "5px",
                     }}
-                    className=" rounded-md"
-                  >
+                    className=" rounded-md">
                     <AccordionSummary
                       expandIcon={<ExpandMoreIcon className="text-white" />}
                       aria-controls="panel1-content"
@@ -497,8 +496,7 @@ const DrafterArgs = () => {
                         font: "",
                         boxShadow: "0px",
                         color: "white",
-                      }}
-                    >
+                      }}>
                       Essential Requirements
                     </AccordionSummary>
                     <AccordionDetails>
@@ -526,8 +524,7 @@ const DrafterArgs = () => {
                       boxShadow: "0px",
                       color: "white",
                       "border-radius": "5px",
-                    }}
-                  >
+                    }}>
                     <AccordionSummary
                       expandIcon={<ExpandMoreIcon className="text-white" />}
                       aria-controls="panel2-content"
@@ -537,8 +534,7 @@ const DrafterArgs = () => {
                         font: "",
                         boxShadow: "0px",
                         color: "white",
-                      }}
-                    >
+                      }}>
                       Optional Requirements
                     </AccordionSummary>
                     <AccordionDetails>
@@ -546,8 +542,7 @@ const DrafterArgs = () => {
                         <div key={index}>
                           <label
                             htmlFor={req}
-                            className="text-white-50 text-xs"
-                          >
+                            className="text-white-50 text-xs">
                             {req.replaceAll("_", " ")}
                           </label>
                           <input
@@ -615,8 +610,7 @@ const DrafterArgs = () => {
 
                 <button
                   onClick={handleToOpenDialog}
-                  className="w-full rounded-md bg-[#018081] py-2 font-semibold text-lg "
-                >
+                  className="w-full rounded-md bg-[#018081] py-2 font-semibold text-lg ">
                   <div className=" flex gap-3 items-center justify-center">
                     <svg
                       className=""
@@ -624,8 +618,7 @@ const DrafterArgs = () => {
                       width="16"
                       height="16"
                       viewBox="0 0 12 12"
-                      fill="none"
-                    >
+                      fill="none">
                       <path
                         d="M4.026 3.42386L5.4 2.04352V7.79895C5.4 7.95812 5.46321 8.11077 5.57574 8.22332C5.68826 8.33587 5.84087 8.3991 6 8.3991C6.15913 8.3991 6.31174 8.33587 6.42426 8.22332C6.53679 8.11077 6.6 7.95812 6.6 7.79895V2.04352L7.974 3.42386C8.02978 3.48011 8.09614 3.52476 8.16925 3.55523C8.24237 3.5857 8.32079 3.60139 8.4 3.60139C8.47921 3.60139 8.55763 3.5857 8.63075 3.55523C8.70386 3.52476 8.77022 3.48011 8.826 3.42386C8.88224 3.36807 8.92687 3.30169 8.95734 3.22856C8.9878 3.15543 9.00348 3.07698 9.00348 2.99776C9.00348 2.91853 8.9878 2.84009 8.95734 2.76695C8.92687 2.69382 8.88224 2.62744 8.826 2.57165L6.426 0.171051C6.36894 0.116413 6.30165 0.0735831 6.228 0.0450193C6.08192 -0.0150064 5.91808 -0.0150064 5.772 0.0450193C5.69835 0.0735831 5.63106 0.116413 5.574 0.171051L3.174 2.57165C3.11806 2.62761 3.07368 2.69404 3.0434 2.76715C3.01313 2.84026 2.99755 2.91862 2.99755 2.99776C2.99755 3.07689 3.01313 3.15525 3.0434 3.22836C3.07368 3.30147 3.11806 3.3679 3.174 3.42386C3.22994 3.47982 3.29636 3.52421 3.36945 3.55449C3.44254 3.58477 3.52088 3.60036 3.6 3.60036C3.67912 3.60036 3.75746 3.58477 3.83055 3.55449C3.90364 3.52421 3.97006 3.47982 4.026 3.42386ZM11.4 5.9985C11.2409 5.9985 11.0883 6.06173 10.9757 6.17428C10.8632 6.28683 10.8 6.43948 10.8 6.59865V10.1996C10.8 10.3587 10.7368 10.5114 10.6243 10.6239C10.5117 10.7365 10.3591 10.7997 10.2 10.7997H1.8C1.64087 10.7997 1.48826 10.7365 1.37574 10.6239C1.26321 10.5114 1.2 10.3587 1.2 10.1996V6.59865C1.2 6.43948 1.13679 6.28683 1.02426 6.17428C0.911742 6.06173 0.75913 5.9985 0.6 5.9985C0.44087 5.9985 0.288258 6.06173 0.175736 6.17428C0.0632141 6.28683 0 6.43948 0 6.59865V10.1996C0 10.6771 0.189642 11.135 0.527208 11.4727C0.864773 11.8103 1.32261 12 1.8 12H10.2C10.6774 12 11.1352 11.8103 11.4728 11.4727C11.8104 11.135 12 10.6771 12 10.1996V6.59865C12 6.43948 11.9368 6.28683 11.8243 6.17428C11.7117 6.06173 11.5591 5.9985 11.4 5.9985Z"
                         fill="white"
@@ -645,8 +638,7 @@ const DrafterArgs = () => {
                       width: "30%",
                       border: "2px solid white",
                     },
-                  }}
-                >
+                  }}>
                   <DialogTitle>
                     <Typography variant="h5" style={{ fontWeight: "bold" }}>
                       Select Languages
@@ -685,8 +677,7 @@ const DrafterArgs = () => {
                         padding: "5px 15px",
                         fontWeight: "bold",
                         textTransform: "none",
-                      }}
-                    >
+                      }}>
                       Cancel
                     </Button>
                     <Button
@@ -700,8 +691,7 @@ const DrafterArgs = () => {
                         padding: "5px 15px",
                         fontWeight: "bold",
                         textTransform: "none",
-                      }}
-                    >
+                      }}>
                       Confirm
                     </Button>
                   </DialogActions>
@@ -715,8 +705,7 @@ const DrafterArgs = () => {
                 if (path !== "docType") navigate("/Drafter");
                 else navigate("/DocType");
               }}
-              className="w-full py-2 transition  ease-in-out duration-500  hover:scale-110  bg-[#004343] rounded-md text-sm border-white border-2"
-            >
+              className="w-full py-2 transition  ease-in-out duration-500  hover:scale-110  bg-[#004343] rounded-md text-sm border-white border-2">
               {path !== "docType" ? "Re-enter Prompt" : "Re-select doctype"}
             </button>
             {reqLoading ? (
@@ -728,8 +717,7 @@ const DrafterArgs = () => {
                   loading || reqLoading
                     ? " pointer-events-none genarate-button cursor-not-allowed"
                     : ""
-                } w-full py-2 border-white border-2 transition ease-in-out duration-1000  hover:scale-110  bg-[#004343]   rounded-md text-sm`}
-              >
+                } w-full py-2 border-white border-2 transition ease-in-out duration-1000  hover:scale-110  bg-[#004343]   rounded-md text-sm`}>
                 {reqLoading ? "Generating ..." : "Generate Document"}
               </button>
             ) : (
@@ -741,8 +729,7 @@ const DrafterArgs = () => {
                   loading || reqLoading
                     ? "opacity-75 pointer-events-none cursor-not-allowed"
                     : ""
-                } w-full border-white border-2 transition ease-in-out duration-1000  hover:scale-110  bg-[#004343]  py-2  rounded-md text-sm`}
-              >
+                } w-full border-white border-2 transition ease-in-out duration-1000  hover:scale-110  bg-[#004343]  py-2  rounded-md text-sm`}>
                 {reqLoading ? "Generating ..." : "Generate Document"}
               </button>
             )}

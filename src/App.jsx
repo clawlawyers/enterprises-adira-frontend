@@ -33,7 +33,8 @@ import AdminLogin from "./AdminLogin/AdminLogin";
 import PromptFile from "./PromptFile/PromptFile";
 import Pricing from "./Payments/Pricing";
 import Signup from "./Login/Signup";
-
+import Header from "./Header/Header";
+import Contact from "./Contactus/Contactus";
 // const router = createBrowserRouter([
 //   {
 //     path: "/",
@@ -175,6 +176,8 @@ function App() {
         <Route path="/DocType" element={<DocType />} />
         <Route path="/AdminLogin" element={<AdminLogin />} />
         <Route path="/Prompt" element={<PromptFile />} />
+        <Route path="/header" element={<Header />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
     </Router>
   );
